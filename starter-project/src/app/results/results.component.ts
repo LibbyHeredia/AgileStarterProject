@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-results-page',
-  templateUrl: './results-page.component.html',
-  styleUrls: ['./results-page.component.css']
+  selector: 'app-results',
+  templateUrl: './results.component.html',
+  styleUrls: ['./results.component.css']
 })
 export class ResultsPageComponent implements OnInit {
 

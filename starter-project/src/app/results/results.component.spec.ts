@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResultsPageComponent } from './results-page.component';
+import { ResultsPageComponent } from './results.component';
 
 describe('ResultsPageComponent', () => {
   let component: ResultsPageComponent;
