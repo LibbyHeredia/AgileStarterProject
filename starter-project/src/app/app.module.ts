@@ -12,6 +12,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { QuizService } from './shared/quiz.service';
+import { QuestionService } from './shared/question.service';
 import { routes } from './app-routing.module';
 
 //Firebase Imports

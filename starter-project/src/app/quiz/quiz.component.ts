@@ -1,54 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { QuizService } from '../../shared/quiz.service';
-import { AngularFirestore} from '@angular/fire/firestore';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { QuestionService } from '../shared/question.service';
+
 
 @Component({
   selector: 'app-Quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css']
 })
-export class quizComponent implements OnInit {
+export class QuizComponent implements OnInit {
 
-  emailPattern = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$";
 
-  constructor( private service: QuizService,
-    private router : Router,
-    private firestore : AngularFirestore,
-    private toastr : ToastrService  ) { }
+  constructor(public itemService: QuestionService){
 
-  ngOnInit() {
-    this.resetForm();
   }
 
-  resetForm(form? : NgForm){
-    if(form != null)
-      form.resetForm();
-    this.service.formData ={
-      answers : {},
-      user : '',
-      email : '',
-      password : '',
-      score : null
-    }
-  }
-
-  onSubmit(form : NgForm){
-    console.log("Submitted");
-    let data = form.value;
-
-    //insert into firestore DB collection
-    this.firestore.collection("users").add(data)
-    this.resetForm(form);
-    this.navigateToLogin();
-    this.toastr.success("Submitted succesfully", 'Quiz Register')
-  }
-
-  navigateToLogin(){
-    this.router.navigate(['./login'])
+  ngOnInit(){
+    this.itemService.getItems().subscribe(items => {
+      console.log(items);
+    });
   }
 
 }
