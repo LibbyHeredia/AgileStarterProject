@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { QuizService } from '../../shared/quiz.service';
 import { AngularFirestore} from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth.service';
@@ -15,7 +14,8 @@ export class RegisterComponent implements OnInit {
 
   emailPattern = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$";
 
-  constructor( private service: QuizService,
+  constructor(
+    private service: AuthService,
     private router : Router,
     private firestore : AngularFirestore,
     private toastr : ToastrService  ) { }
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     if(form != null)
       form.resetForm();
     this.service.formData ={
-      answers : {},
+      answers : [],
       user : '',
       email : '',
       password : '',

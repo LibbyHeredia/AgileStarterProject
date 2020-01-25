@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Quiz } from './quiz.model';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase/app'
 import { Query } from '@firebase/firestore-types'
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -10,7 +10,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 export class QuizService {
   formData: Quiz;
-  constructor(private db: AngularFirestore) { }
+  constructor(
+    private db: AngularFirestore
+  ) { }
 
   createUser(userID: string, name: any) {
     this.db.collection("users").doc(userID).set({
