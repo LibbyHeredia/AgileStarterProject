@@ -13,6 +13,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { QuizService } from './shared/quiz.service';
 import { QuestionService } from './shared/question.service';
+import { AuthGuard } from './auth/auth.guard';
 import { routes } from './app-routing.module';
 
 //Firebase Imports
@@ -70,7 +71,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ToastrModule.forRoot(),
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
-  providers: [QuizService],
+  providers: [QuizService, QuestionService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

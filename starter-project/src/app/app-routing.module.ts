@@ -4,6 +4,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent} from './auth/login/login.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { ResultsPageComponent } from './results/results.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 export const routes: Routes = [
@@ -13,8 +14,8 @@ export const routes: Routes = [
   {path:'results', component:ResultsPageComponent},
 
   //route for default routing
-  {path:'', redirectTo:'/register', pathMatch:'full'},
-  {path: '**', redirectTo: 'login', pathMatch: 'full' }
+  {path:'', redirectTo:'/login', pathMatch:'full'},
+  {path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({

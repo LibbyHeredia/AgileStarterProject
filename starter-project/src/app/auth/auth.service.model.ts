@@ -5,5 +5,5 @@ export class Auth {
   email : string;
   password : string;
   score : number;
-  answers : {};
+  answers : [];
 }
