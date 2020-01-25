@@ -20,11 +20,13 @@
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
+    "@firebase/firestore": "^1.9.3",
     "firebase": "^7.7.0",
     "firebaseui": "^4.4.0",
     "firebaseui-angular": "^4.0.1",
     "ngx-toastr": "^11.3.2",
     "rxjs": "~6.4.0",
+    "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
