@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { QuestionService } from '../shared/question.service';
+
+import { QuizService } from '../shared/quiz.service';
+
 
 
 @Component({

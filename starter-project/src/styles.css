@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~firebaseui/dist/firebaseui.css";
 
 input.ng-invalid.ng-dirty.ng-touched{
   border-bottom-color : #e91e63 !important;
