@@ -3,6 +3,7 @@ import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Question } from './question.model';
+import { Answer } from './answer.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 
@@ -11,12 +12,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class QuestionService{
 
   userQuestionDataDocument: AngularFirestoreDocument<Question>;
-  userAnswerData : Question
+  questionData : Question
   formQuestionData : any; //Saved logged in user question data
   currentQN : number
   currentQNimage : string
   currentQNquestion : string
   currentQNchoices : Array<string> =[];
+  NUMBER_QUESTIONS : number
+  userSelectedAnswers : Answer
 
   readonly rootUrl = 'http://localhost:4200';
   constructor(
@@ -38,14 +41,14 @@ export class QuestionService{
           JSON.parse(localStorage.getItem('user'));
       }
     })
+    this.NUMBER_QUESTIONS = 5
     this.ResetUserAnswerData()
   }
 
   ResetUserAnswerData(){
     console.log("QUIZ SERVICE: Reset User Answer Data")
-    const userRef : AngularFirestoreDocument<any> = this.fbService.doc('users/${user.uid}')
 
-    this.userAnswerData = {
+    this.questionData = {
       questions: {
         0: "Question 1 Text?",
         1: "Question 2 Text?",
@@ -65,11 +68,13 @@ export class QuestionService{
       answers: []
     }
     this.currentQN = 0
+    this.userSelectedAnswers = {
+      answers : [],
+      score : 0
+    }
     this.LoadQuestion()
     console.log("QUIZ SERVICE: Setting userRef with userAnswerData")
-    return userRef.set(this.userAnswerData, {
-      merge: true
-    })
+
   }
 
     LoadQuestion(){
@@ -84,24 +89,35 @@ export class QuestionService{
     }
   //ANSWER
   SetUserAnswer(QNumber, answer){
-    const userRef : AngularFirestoreDocument<any> = this.fbService.doc('users/${user.userID}')
-    this.userAnswerData.answers[QNumber]= answer
+
+
+    this.questionData.answers[QNumber]= answer
+    this.userSelectedAnswers.answers[QNumber] = answer
     console.log("Answer selected: ")
-    console.log(this.userAnswerData.answers[QNumber])
+    console.log(this.questionData.answers[QNumber])
     console.log(" User answers so far: ")
-    console.log(this.userAnswerData.answers)
+    console.log(this.questionData.answers)
     this.GetNextQuestion();
     this.LoadQuestion()
+
+    const user = this.formQuestionData
+    console.log("USER ID")
+    console.log(user.uid)
+    console.log('users/${user.uid}')
+    const userRef : AngularFirestoreDocument<any> = this.fbService.doc(`users/${user.uid}`)
+    userRef.set(this.userSelectedAnswers, {
+      merge: true
+    })
   }
 
   GetCurrentQNChoices(QNumber){
-    this.currentQNchoices = this.userAnswerData.choices[QNumber]
-    return this.userAnswerData.choices[QNumber]
+    this.currentQNchoices = this.questionData.choices[QNumber]
+    return this.questionData.choices[QNumber]
   }
 
   GetCurrentQNQuestion(QNumber){
-    this.currentQNquestion = this.userAnswerData.questions[QNumber]
-    return this.userAnswerData.questions[QNumber]
+    this.currentQNquestion = this.questionData.questions[QNumber]
+    return this.questionData.questions[QNumber]
   }
 
   GetCurrentQN(){
@@ -112,14 +128,22 @@ export class QuestionService{
   GetNextQuestion(){
     console.log("Getting next QN... ")
     console.log(this.currentQN + 1)
+    console.log(this.NUMBER_QUESTIONS)
+    console.log(">:(")
 
+
+    if(this.currentQN + 1 >=  this.NUMBER_QUESTIONS){
+      console.log("HERE")
+
+      return this.currentQN
+    }
     return this.currentQN = this.currentQN + 1
   }
 
 
   GetCurrentQNImage(QNumber){
-    this.currentQNimage = this.userAnswerData.images[QNumber]
-    return this.userAnswerData.images[QNumber]
+    this.currentQNimage = this.questionData.images[QNumber]
+    return this.questionData.images[QNumber]
   }
 
   GetPreviousQuestion(){
