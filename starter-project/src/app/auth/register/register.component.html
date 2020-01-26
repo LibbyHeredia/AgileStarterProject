@@ -2,57 +2,61 @@
     <div class="col s6 offset-s3">
       <div card>
 
-        <div class="col s6">
-        <h2> Quiz Registration </h2>
-        </div>
-        <div class="col s6">
-        <img src="/assets/img/snoopy-logo.jpg" style="width:160px;height:250px;" class="offset-s3">
-        </div>
+        <div class="displayTable">
+          <div class="displayTableCell">
 
-        <div class="card-content">
-          <form #registerForm="ngForm" (submit) = "onSubmit(registerForm)">
+            <div class="authBlock">
 
-            <div class ="row">
-              <div class = "input-field col s12">
-                <i class="material-icons prefic">account_circle</i>
-                <input type="text" name="name" #name="ngModel" [(ngModel)] ="service.formData.name" required>
-                  <div *ngIf="name.invalid && name.touched" class="validation-error">
-                    This field is required.
-                  </div>
-                <label>Name</label>
-              </div>
-            </div>
+              <img src="/assets/img/snoopy-logo.jpg" style="width:160px;height:250px;" class="offset-s3">
 
-            <div class ="row">
-              <div class = "input-field col s12">
-                <i class="material-icons prefic">mail_outline</i>
-                <input type="text" name="email" #email= "ngModel" [(ngModel)] ="service.formData.email" required [pattern] = "emailPattern">
+              <h3>Quiz Registration</h3>
+
+              <div classs = "card-content">
+                <form #registerForm="ngForm" (submit) = "onSubmit(registerForm)">
+                <div class="formGroup">
+                  <input type="text" name="name" placeholder = "Name" #name="ngModel" [(ngModel)] ="service.formData.name" required>
+                    <div *ngIf="name.invalid && name.touched" class="validation-error">
+                      This field is required.
+                    </div>
+                </div>
+
+                <div class="formGroup">
+                  <input type="text" name ="email" class="formControl"  placeholder="Email Address" #email required>
                   <div *ngIf="email.invalid && email.touched" class="validation-error">
                     This field is required.
                   </div>
-                <label>Email</label>
-              </div>
-            </div>
+                </div>
 
-            <div class ="row">
-              <div class = "input-field col s12">
-                <i class="material-icons prefic">account_circle</i>
-                <input type="text" name="password" #password="ngModel" [(ngModel)] ="service.formData.password" required>
+                <div class="formGroup">
+                  <input type="text" name = "password" class="formControl" placeholder="Password" #password="ngModel" [(ngModel)] ="service.formData.password" required>
                   <div *ngIf="password.invalid && password.touched" class="validation-error">
                     This field is required.
                   </div>
-                <label>Password</label>
+                </div>
+
+                <div class="formGroup">
+                  <button class="btn-large btn-submit" type="submit" [disabled]= "!registerForm.valid" value="Sign Up" (click)="service.register(email.value, password.value)">
+                  Register
+                  </button>
+                </div>
+
+                <!-- Continue with Facebook -->
+                <div class="formGroup">
+                    <!-- Calling FacebookAuth Api from AuthService -->
+                    <div id = "firebaseui-auth-container" class = "auth-container">
+                    </div>
+                </div>
+                </form>
               </div>
             </div>
 
-            <div class ="row">
-              <div class = "input-field col s12">
-                <button class="btn-large btn-submit" type="submit" [disabled]= "!registerForm.valid">Register</button>"
-              </div>
+            <div class="redirectToLogin">
+              <span>Already have an account? <span class="redirect" routerLink="/login">Sign In Here</span></span>
             </div>
-          </form>
+
+          </div>
+
         </div>
-
       </div>
     </div>
   </div>

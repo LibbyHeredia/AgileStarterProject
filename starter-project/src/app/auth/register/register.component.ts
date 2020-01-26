@@ -4,6 +4,8 @@ import { AngularFirestore} from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
+import * as firebaseui from 'firebaseui';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+  ui : firebaseui.auth.AuthUI;
   emailPattern = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$";
 
   constructor(
@@ -22,6 +25,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.resetForm();
+    const uiConfig = {
+      signInSuccessURL: "http://localhost:4200/login/",
+      signInOptions: [
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID
+      ],
+    };
+    this.ui = new firebaseui.auth.AuthUI(this.service.afAuth.auth);
+    this.ui.start('#firebaseui-auth-container', uiConfig);
   }
 
   resetForm(form? : NgForm){

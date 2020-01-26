@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col s6 offset-s3">
+      <div card>
+
+        <div class="col s6">
+        <h2> Quiz Registration </h2>
+        </div>
+        <div class="col s6">
+        <img src="/assets/img/snoopy-logo.jpg" style="width:160px;height:250px;" class="offset-s3">
+        </div>
+
+        <div class="card-content">
+          <form #registerForm="ngForm" (submit) = "onSubmit(registerForm)">
+
+            <div class ="row">
+              <div class = "input-field col s12">
+                <i class="material-icons prefic">account_circle</i>
+                <input type="text" name="name" #name="ngModel" [(ngModel)] ="service.formData.name" required>
+                  <div *ngIf="name.invalid && name.touched" class="validation-error">
+                    This field is required.
+                  </div>
+                <label>Name</label>
+              </div>
+            </div>
+
+            <div class ="row">
+              <div class = "input-field col s12">
+                <i class="material-icons prefic">mail_outline</i>
+                <input type="text" name="email" #email= "ngModel" [(ngModel)] ="service.formData.email" [(ngModel)] ="service.formData.email" required [pattern] = "emailPattern">
+                  <div *ngIf="email.invalid && email.touched" class="validation-error">
+                    This field is required.
+                  </div>
+                <label>Email</label>
+              </div>
+            </div>
+
+            <div class ="row">
+              <div class = "input-field col s12">
+                <i class="material-icons prefic">account_circle</i>
+                <input type="text" name="password" #password="ngModel" [(ngModel)] ="service.formData.password" [(ngModel)] ="service.formData.password" required>
+                  <div *ngIf="password.invalid && password.touched" class="validation-error">
+                    This field is required.
+                  </div>
+                <label>Password</label>
+              </div>
+            </div>
+
+            <div class ="row">
+              <div class = "input-field col s12">
+                <button class="btn-large btn-submit" type="submit" [disabled]= "!registerForm.valid">Register</button>"
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>

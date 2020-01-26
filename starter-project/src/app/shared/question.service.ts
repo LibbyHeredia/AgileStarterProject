@@ -28,6 +28,8 @@ export class QuestionService{
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user=>{
       if(user){
+        console.log("QUESTION SERVICE USER")
+        console.log(user.uid)
         this.formQuestionData = user;
         localStorage.setItem('user', JSON.stringify(this.formQuestionData));
         JSON.parse(localStorage.getItem('user'));
@@ -36,69 +38,95 @@ export class QuestionService{
           JSON.parse(localStorage.getItem('user'));
       }
     })
+    this.ResetUserAnswerData()
   }
 
   ResetUserAnswerData(){
     console.log("QUIZ SERVICE: Reset User Answer Data")
-    const userRef : AngularFirestoreDocument<any> = this.fbService.doc('users/${user.userID}')
+    const userRef : AngularFirestoreDocument<any> = this.fbService.doc('users/${user.uid}')
 
     this.userAnswerData = {
       questions: {
-        1: "Question 1 Text?",
-        2: "Question 2 Text?",
-        3: "Question 3 Text?",
-        4: "Question 4 Text?",
-        5: "Question 5 Text?",
+        0: "Question 1 Text?",
+        1: "Question 2 Text?",
+        2: "Question 3 Text?",
+        3: "Question 4 Text?",
+        4: "Question 5 Text?",
 
       },
       choices : {
-        1: ["Answer","Answer","Answer","Answer"],
-        2: ["Answer","Answer","Answer","Answer"],
-        3: ["Answer","Answer","Answer","Answer"],
-        4: ["Answer","Answer","Answer","Answer"],
-        5: ["Answer","Answer","Answer","Answer"],
+        0: ["Answer1","Answer1","Answer1","Answer1"],
+        1: ["Answer2","Answer2","Answer2","Answer2"],
+        2: ["Answer3","Answer3","Answer3","Answer3"],
+        3: ["Answer4","Answer4","Answer4","Answer4"],
+        4: ["Answer5","Answer5","Answer5","Answer5"],
       },
-      images : ['Q1.jpg','Q1.jpg','Q1.jpg','Q1.jpg'],
+      images : ['Q0.jpg','Q1.jpg','Q2.jpg','Q3.jpg','Q4.jpg'],
       answers: []
     }
     this.currentQN = 0
-    this.currentQNimage = "Q1.jpg"
-    this.currentQNquestion = this.userAnswerData.questions[this.currentQN]
-    this.currentQNchoices = this.userAnswerData.choices[this.currentQN]
-
+    this.LoadQuestion()
     console.log("QUIZ SERVICE: Setting userRef with userAnswerData")
     return userRef.set(this.userAnswerData, {
       merge: true
     })
   }
 
+    LoadQuestion(){
+      var QN = this.GetCurrentQN()
+      this.GetCurrentQNImage(QN)
+      this.GetCurrentQNQuestion(QN)
+      this.GetCurrentQNChoices(QN)
+      console.log("Loading Question...")
+      console.log(this.GetCurrentQN())
+      console.log("Current image:")
+      console.log(this.GetCurrentQNImage(QN))
+    }
   //ANSWER
   SetUserAnswer(QNumber, answer){
     const userRef : AngularFirestoreDocument<any> = this.fbService.doc('users/${user.userID}')
     this.userAnswerData.answers[QNumber]= answer
+    console.log("Answer selected: ")
+    console.log(this.userAnswerData.answers[QNumber])
+    console.log(" User answers so far: ")
+    console.log(this.userAnswerData.answers)
+    this.GetNextQuestion();
+    this.LoadQuestion()
   }
 
   GetCurrentQNChoices(QNumber){
-    console.log("Getting current QN choices")
-    console.log(this.currentQNchoices)
+    this.currentQNchoices = this.userAnswerData.choices[QNumber]
     return this.userAnswerData.choices[QNumber]
   }
 
   GetCurrentQNQuestion(QNumber){
+    this.currentQNquestion = this.userAnswerData.questions[QNumber]
     return this.userAnswerData.questions[QNumber]
   }
 
   GetCurrentQN(){
     console.log(this.currentQN)
-    this.currentQN;
+    return this.currentQN;
   }
 
-  GetNextQuestion(qn){
+  GetNextQuestion(){
+    console.log("Getting next QN... ")
+    console.log(this.currentQN + 1)
 
+    return this.currentQN = this.currentQN + 1
   }
+
 
   GetCurrentQNImage(QNumber){
     this.currentQNimage = this.userAnswerData.images[QNumber]
+    return this.userAnswerData.images[QNumber]
+  }
 
+  GetPreviousQuestion(){
+    console.log("Getting next QN... ")
+    console.log(this.currentQN - 1)
+
+    return this.currentQN = this.currentQN - 1
+    this.LoadQuestion()
   }
 }
