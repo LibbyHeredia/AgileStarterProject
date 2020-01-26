@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   ui : firebaseui.auth.AuthUI;
 
   constructor(
-    private service: AuthService,
+    public service: AuthService,
     private router : Router,
     private firestore : AngularFirestore,
     private toastr : ToastrService  ) { }
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.initForm()
     const uiConfig = {
-      signInSucessURL: "https://localhost:4200/quiz/",
+      signInSuccessURL: "http://localhost:4200/quiz/",
       signInOptions: [
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
         firebase.auth.TwitterAuthProvider.PROVIDER_ID

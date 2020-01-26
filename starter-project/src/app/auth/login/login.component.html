@@ -2,52 +2,48 @@
     <div class="col s6 offset-s3">
       <div card>
 
-        <div class="col s6">
-        <h2> Login </h2>
-        </div>
-        <div class="col s6">
-        <img src="/assets/img/snoopy-logo.jpg" style="width:160px;height:250px;" class="offset-s3">
-        </div>
+        <div class="displayTable">
+          <div class="displayTableCell">
+            <div class="authBlock">
+              <img src="/assets/img/snoopy-logo.jpg" style="width:160px;height:250px;" class="offset-s3">
+              <h3>Sign In</h3>
 
-        <div class="card-content">
-          <form #loginForm="ngForm" (submit) = "onLogin(loginForm)">
+              <div classs = "card-content">
+                <form #loginForm="ngForm" (submit) = "onLogin(loginForm)">
 
-            <div class ="row">
-              <div class = "input-field col s12">
-                <i class="material-icons prefic">mail_outline</i>
-                <input type="text" name="email" #email= "ngModel" [(ngModel)] ="service.formData.email" required [pattern] = "emailPattern">
-                  <div *ngIf="email.invalid && email.touched" class="validation-error">
-                    This field is required.
+                  <div class="formGroup">
+                    <input type="text" name="email" #email class="formControl" placeholder="Email"  [pattern] = "emailPattern" required >
+                      <div *ngIf="email.invalid && email.touched" class="validation-error">
+                        This field is required.
+                      </div>
                   </div>
-                <label>Email</label>
-              </div>
-            </div>
 
-            <div class ="row">
-              <div class = "input-field col s12">
-                <i class="material-icons prefic">account_circle</i>
-                <input type="text" name="password" #password="ngModel" [(ngModel)] ="service.formData.password" required>
-                  <div *ngIf="password.invalid && password.touched" class="validation-error">
-                    This field is required.
+                  <div class="formGroup">
+                    <input type="text" class="formControl" placeholder="Password" #password name="password" required >
+                      <div *ngIf="email.invalid && email.touched" class="validation-error">
+                        This field is required.
+                      </div>
                   </div>
-                <label>Password</label>
+
+                  <!-- Calling SignIn Api from AuthService -->
+                  <div class="formGroup">
+                    <input type="button" class="btn btnPrimary" value="Log in" (click)="service.login(email.value, password.value)">
+                  </div>
+
+                  <!-- Continue with Facebook -->
+                  <div class="formGroup">
+                      <!-- Calling FacebookAuth Api from AuthService -->
+                      <div id = "firebaseui-auth-container" class = "auth-container">
+                      </div>
+                  </div>
+
+                </form>
               </div>
-            </div>
-
-            <div class ="row">
-              <div class = "input-field col s12">
-                <button class="btn-large btn-submit" type="submit" [disabled]= "!loginForm.valid">Start Quiz</button>"
-              </div>
-            </div>
-
-            <!-- Calling FacebookAuth Api from AuthService -->
-            <div id = "firebaseui-auth-container" class = "auth-container">
 
             </div>
-            
-          </form>
-        </div>
+          </div>
 
       </div>
     </div>
   </div>
+</div>

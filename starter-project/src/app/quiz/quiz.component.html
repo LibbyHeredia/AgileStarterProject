@@ -10,14 +10,14 @@
         </div>
         <div>
           <p>
-            {{QuestionService.GetCurrentQNQuestion(QuestionService.currentQN+1)}}
+            {{QuestionService.GetCurrentQNQuestion(QuestionService.currentQN)}}
           </p>
         </div>
       </div>
       <div class = "card-action">
         <ul class = "collection answer">
-          <ng-container *ngFor = "let option of QuestionService.GetCurrentQNChoices(QuestionService.currentQN+1); let i = index">
-            <li *ngIf= "option != null" class = "collection-item" (click) = "SetUserAnswer(QuestionService.currentQN+1, i)">
+          <ng-container *ngFor = "let option of QuestionService.GetCurrentQNChoices(QuestionService.currentQN); let i = index">
+            <li *ngIf= "option != null" class = "collection-item" (click) = "QuestionService.SetUserAnswer(QuestionService.currentQN, i)">
               {{option}}
             </li>
           </ng-container>
