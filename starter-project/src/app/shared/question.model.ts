@@ -19,4 +19,5 @@ export class Question {
   images : Array<string> = ['Q1.jpg','Q1.jpg','Q1.jpg','Q1.jpg']
   answers : Array<number> =[]
 
+  
 }

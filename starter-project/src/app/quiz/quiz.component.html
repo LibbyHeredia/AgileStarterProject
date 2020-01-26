@@ -5,10 +5,12 @@
         <span class="card-title">
           {{QuestionService.currentQN+1}}
         </span>
-        <div>
-          <img class="center" [src]="'/assets/img/'+QuestionService.currentQNimage" style="width:350px;height:200px">
+        <div class = "row">
+          <div class="col s12 center-align">
+            <img class="center"  [src]="'/assets/img/'+QuestionService.currentQNimage" style="width:350px;height:200px">
+          </div>
         </div>
-        <div>
+        <div class="center-align">
           <p>
             {{QuestionService.GetCurrentQNQuestion(QuestionService.currentQN)}}
           </p>
@@ -16,13 +18,29 @@
       </div>
       <div class = "card-action">
         <ul class = "collection answer">
+          <div class = "center-align">
           <ng-container *ngFor = "let option of QuestionService.GetCurrentQNChoices(QuestionService.currentQN); let i = index">
-            <li *ngIf= "option != null" class = "collection-item" (click) = "QuestionService.SetUserAnswer(QuestionService.currentQN, i)">
+            <li *ngIf= "option != null" class = "collection-item" (click) = "QuestionService.SetUserAnswer(QuestionService.currentQN, i)" >
               {{option}}
             </li>
           </ng-container>
+        </div>
         </ul>
       </div>
   </div>
+  <div class="col s3 offset-s2 center-align">
+    <a class="waves-effect waves-light btn" (click) = "QuestionService.GoToPreviousQuestion()">Previous</a>
+  </div>
+
+  <div class="col s2 center-align">
+    <button class="btn waves-effect waves-light disabled"  type="submit" name="action" (click) = "QuestionService.CalculateScore()" routerLink="/results">Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
+
+  <div class="col s3 center-align">
+    <a class="waves-effect waves-light btn " (click) = "QuestionService.GoToNextQuestion()">Next</a>
+  </div>
+</div>
 </div>
 <app-navbar></app-navbar>

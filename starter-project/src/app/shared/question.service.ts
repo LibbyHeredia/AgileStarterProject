@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Question } from './question.model';
 import { Answer } from './answer.model';
 import { AngularFireAuth } from '@angular/fire/auth';
-
+import { Routes, RouterModule } from '@angular/router';
 
 @Injectable()
 
@@ -15,10 +15,12 @@ export class QuestionService{
   questionData : Question
   formQuestionData : any; //Saved logged in user question data
   currentQN : number
+  numAnswered : number
   currentQNimage : string
   currentQNquestion : string
   currentQNchoices : Array<string> =[];
   NUMBER_QUESTIONS : number
+  finalScore : number
   userSelectedAnswers : Answer
 
   readonly rootUrl = 'http://localhost:4200';
@@ -41,6 +43,8 @@ export class QuestionService{
           JSON.parse(localStorage.getItem('user'));
       }
     })
+    this.numAnswered = 0
+    this.finalScore = -1
     this.NUMBER_QUESTIONS = 5
     this.ResetUserAnswerData()
   }
@@ -50,23 +54,26 @@ export class QuestionService{
 
     this.questionData = {
       questions: {
-        0: "Question 1 Text?",
-        1: "Question 2 Text?",
-        2: "Question 3 Text?",
-        3: "Question 4 Text?",
-        4: "Question 5 Text?",
-
+        0: "What are your thoughts on pulling all-nighters…?",
+        1: "When did you get up today?",
+        2: "Do you have any incomplete assignments?",
+        3: "Did you skip class today?",
+        4: "How many times have you work sweatpants to class this semester?"
+        
       },
       choices : {
-        0: ["Answer1","Answer1","Answer1","Answer1"],
-        1: ["Answer2","Answer2","Answer2","Answer2"],
-        2: ["Answer3","Answer3","Answer3","Answer3"],
-        3: ["Answer4","Answer4","Answer4","Answer4"],
-        4: ["Answer5","Answer5","Answer5","Answer5"],
+        0: ["Never","Occasionally","Often","Sleep is for the weak"],
+        1: ["Early Morning","Around Lunch","Afternoon","I didn't get up today"],
+        2: ["None at all ","Maybe 1","I have a few","I dont know, probably a lot"],
+        3: ["I did not skip any classes","I only skipped 1-2","I only attended 1 class because they take attendance","I no longer go to school"],
+        4: ["I actively dress up for class and would never wear sweatpants to class","Maybe once if I'm late","I wear them quite a bit","I only own groutfits"]
+        
       },
-      images : ['Q0.jpg','Q1.jpg','Q2.jpg','Q3.jpg','Q4.jpg'],
-      answers: []
+      images : ['Q0.jpg', 'Q1.jpg','Q2.jpg','Q3.jpg','Q4.jpg'],
+      answers: [-1, -1, -1, -1, -1]
+      
     }
+    
     this.currentQN = 0
     this.userSelectedAnswers = {
       answers : [],
@@ -87,6 +94,15 @@ export class QuestionService{
       console.log("Current image:")
       console.log(this.GetCurrentQNImage(QN))
     }
+  
+  checkDone(){
+    console.log("checking if done")
+    if(!this.questionData.answers.includes(-1)){
+      console.log("time to submit")
+      let body = document.getElementsByName('action')[0];
+      body.classList.remove('disabled');
+    }
+  }
   //ANSWER
   SetUserAnswer(QNumber, answer){
 
@@ -99,7 +115,11 @@ export class QuestionService{
     console.log(this.questionData.answers)
     this.GetNextQuestion();
     this.LoadQuestion()
-
+    
+    this.checkDone()
+    
+    console.log("numAnswered:")
+    console.log(this.numAnswered)
     const user = this.formQuestionData
     console.log("USER ID")
     console.log(user.uid)
@@ -147,10 +167,47 @@ export class QuestionService{
   }
 
   GetPreviousQuestion(){
-    console.log("Getting next QN... ")
-    console.log(this.currentQN - 1)
 
-    return this.currentQN = this.currentQN - 1
-    this.LoadQuestion()
+    if(this.currentQN > 0){
+      console.log("Getting next QN... ")
+      console.log(this.currentQN - 1)
+
+      return this.currentQN = this.currentQN - 1
+      
+    }
+    
+  }
+  GoToPreviousQuestion(){
+
+    if(this.currentQN > 0){
+      console.log("Getting next QN... ")
+      console.log(this.currentQN - 1)
+
+      this.currentQN = this.currentQN - 1
+      this.LoadQuestion()
+    }
+    
+  }
+  GoToNextQuestion(){
+
+    if(this.currentQN < 4){
+      console.log("Getting next QN... ")
+      console.log(this.currentQN + 1)
+
+      this.currentQN = this.currentQN + 1
+      this.LoadQuestion()
+    }
+    
+  }
+
+  CalculateScore(){
+    var sum = 0;
+    for( var i = 0; i < this.questionData.answers.length; i++ ){
+      sum += this.questionData.answers[i]
+    }
+  
+    this.finalScore = sum/this.questionData.answers.length;
+    console.log("the average score is:")
+    console.log(this.finalScore)
   }
 }

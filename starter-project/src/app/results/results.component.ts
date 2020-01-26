@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { QuestionService } from '../shared/question.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-results',
@@ -8,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 export class ResultsPageComponent implements OnInit {
 
   
-  constructor() { }
+  constructor(
+    private QuestionService: QuestionService,
+    private toastr : ToastrService,
+    private firestore : AngularFirestore  ) { 
+
+    }
 
   ngOnInit() {
+
+    
   }
 
 }
