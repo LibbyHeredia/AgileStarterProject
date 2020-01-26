@@ -105,7 +105,7 @@ export class QuestionService{
     console.log(user.uid)
     console.log('users/${user.uid}')
     const userRef : AngularFirestoreDocument<any> = this.fbService.doc(`users/${user.uid}`)
-    userRef.set(this.userSelectedAnswers, {
+    userRef.set( this.userSelectedAnswers, {
       merge: true
     })
   }
