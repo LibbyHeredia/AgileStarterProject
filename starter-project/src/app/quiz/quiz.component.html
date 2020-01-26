@@ -1,3 +1,28 @@
-
-<p>quiz works!</p>
-<app-navbar></app-navbar> 
+<div class = "row" *ngIf = "QuestionService.GetNextQuestion">
+  <div class="col s8 offset-s2">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">
+          {{QuestionService.currentQN+1}}
+        </span>
+        <div>
+          <img class="center" [src]="'/assets/img/'+QuestionService.currentQNimage" style="width:350px;height:200px">
+        </div>
+        <div>
+          <p>
+            {{QuestionService.GetCurrentQNQuestion(QuestionService.currentQN)}}
+          </p>
+        </div>
+      </div>
+      <div class = "card-action">
+        <ul class = "collection answer">
+          <ng-container *ngFor = "let option of QuestionService.GetCurrentQNChoices(QuestionService.currentQN); let i = index">
+            <li *ngIf= "option != null" class = "collection-item" (click) = "QuestionService.SetUserAnswer(QuestionService.currentQN, i)">
+              {{option}}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+  </div>
+</div>
+<app-navbar></app-navbar>

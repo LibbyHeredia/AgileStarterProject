@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizService } from '../shared/quiz.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +7,9 @@ import { QuizService } from '../shared/quiz.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(
-    private service :QuizService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.service.AllQuestionsAnswered()
   }
 
 }
