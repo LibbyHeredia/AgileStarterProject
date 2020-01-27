@@ -22,7 +22,9 @@ export class QuestionService{
   NUMBER_QUESTIONS : number
   finalScore : number
   userSelectedAnswers : Answer
-
+  resultsExplanationsArray : Array<string> =[];
+  resultsExplanation : string
+  resultImage : string
 
   readonly rootUrl = 'http://localhost:4200';
   constructor(
@@ -47,6 +49,10 @@ export class QuestionService{
     this.numAnswered = 0
     this.finalScore = -1
     this.NUMBER_QUESTIONS = 5
+    this.resultsExplanationsArray = ["Must be a First Year or something with that dedication", 
+    "You have some senioritis, but not enough where it is fatal", 
+    "You have large amounts of senioritis, but still go to class", 
+    "Just graduate already jeez"]
     this.ResetUserAnswerData()
   }
 
@@ -182,10 +188,11 @@ export class QuestionService{
       sum += this.questionData.answers[i]
     }
 
-    this.finalScore = sum/this.questionData.answers.length;
+    this.finalScore = Math.round((sum/this.questionData.answers.length)/3 * 100);
+    
     console.log("the average score is:")
     console.log(this.finalScore)
-
+    this.processResults()
     this.userSelectedAnswers.score = this.finalScore
 
     const user = this.formQuestionData
@@ -193,5 +200,27 @@ export class QuestionService{
     userRef.set({
       "score": this.userSelectedAnswers.score
     }, {merge: true})
+  }
+
+  processResults() {
+    
+    console.log(this.finalScore)
+    if(this.finalScore < 25){
+      this.resultsExplanation = this.resultsExplanationsArray[0]
+      this.resultImage = "R1.jpg"
+    }
+    else if(this.finalScore < 50 && this.finalScore >=25){
+      this.resultsExplanation = this.resultsExplanationsArray[1]
+      this.resultImage = "R2.jpg"
+    }
+    else if(this.finalScore < 75 && this.finalScore >=50){
+      this.resultsExplanation = this.resultsExplanationsArray[2]
+      this.resultImage = "R3.jpg"
+    }
+    else {
+      this.resultsExplanation = this.resultsExplanationsArray[3]
+      this.resultImage = "R4.jpg"
+    }
+    
   }
 }
