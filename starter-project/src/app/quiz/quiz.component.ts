@@ -41,13 +41,8 @@ export class QuizComponent implements OnInit {
 
   }
 
-  updateQuizFormData(form? : NgForm){
-    //TODO
-    this.QuestionService.SetUserAnswer(1,2)
-  }
-
   onClick(form){
 
-
   }
+
 }

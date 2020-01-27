@@ -76,6 +76,7 @@ export class QuestionService{
 
     this.currentQN = 0
     this.userSelectedAnswers = {
+      name : "",
       answers : [],
       score : 0
     }
@@ -117,10 +118,12 @@ export class QuestionService{
     this.checkDone()
 
     const user = this.formQuestionData
+
     const userRef : AngularFirestoreDocument<any> = this.fbService.doc(`users/${user.uid}`)
-    userRef.set(this.userSelectedAnswers, {
-      merge: true
-    })
+    userRef.set({
+      "answers": this.userSelectedAnswers.answers
+    },{merge: true})
+
   }
 
   GetCurrentQNChoices(QNumber){
@@ -139,14 +142,7 @@ export class QuestionService{
   }
 
   GetNextQuestion(){
-    console.log("Getting next QN... ")
-    console.log(this.currentQN + 1)
-    console.log(this.NUMBER_QUESTIONS)
-    console.log(">:(")
-
     if(this.currentQN + 1 >=  this.NUMBER_QUESTIONS){
-      console.log("HERE")
-
       return this.currentQN
     }
     return this.currentQN = this.currentQN + 1
@@ -160,39 +156,25 @@ export class QuestionService{
 
   GetPreviousQuestion(){
     if(this.currentQN > 0){
-      console.log("Getting next QN... ")
-      console.log(this.currentQN - 1)
-
       return this.currentQN = this.currentQN - 1
-
     }
   }
 
   GoToPreviousQuestion(){
 
     if(this.currentQN > 0){
-      console.log("Getting next QN... ")
-      console.log(this.currentQN - 1)
-
       this.currentQN = this.currentQN - 1
       this.LoadQuestion()
     }
   }
 
 
-
   GoToNextQuestion(){
-
     if(this.currentQN < 4){
-      console.log("Getting next QN... ")
-      console.log(this.currentQN + 1)
-
       this.currentQN = this.currentQN + 1
       this.LoadQuestion()
     }
-
   }
-
 
   CalculateScore(){
     var sum = 0;
@@ -208,9 +190,8 @@ export class QuestionService{
 
     const user = this.formQuestionData
     const userRef : AngularFirestoreDocument<any> = this.fbService.doc(`users/${user.uid}`)
-    userRef.set(this.userSelectedAnswers, {
-      merge: true
-    })
-
+    userRef.set({
+      "score": this.userSelectedAnswers.score
+    }, {merge: true})
   }
 }

@@ -7,6 +7,7 @@ import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firest
 import { Router } from '@angular/router';
 import { Auth } from './auth.service.model'; //"User"
 import { auth } from 'firebase/app';
+import { Answer } from '../shared/answer.model';
 //TODO: Finish Auth Service
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ import { auth } from 'firebase/app';
 export class AuthService {
 
   formData : any; //Saved logged in user data
+  userName : Answer
 
   constructor(
     private router: Router,
@@ -49,11 +51,13 @@ export class AuthService {
           this.SetUserData(userObj.user) //
           this.router.navigate(['/login'])
           //this.fbService.createUser(userObj.user.uid,name)
+          
         })
         .catch(error => { // to account for errors in request/promise
           console.log(error.message)
         })
-      }
+
+    }
 
   //log in with email and password
   login(email, password) {
@@ -112,11 +116,11 @@ export class AuthService {
       answers : user.answers
     }
 
+
     return userRef.set(userData , {
       merge: true
     })
   }
-
 
 
   //function to handle error codes
