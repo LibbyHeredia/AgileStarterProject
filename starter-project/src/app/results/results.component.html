@@ -6,8 +6,16 @@
           <div class="card-content white-text">
              <span class="card-title center-align">Your Score Is:</span>
              <div class="center-align">
-                <p>{{QuestionService.finalScore}}</p>
+                <p style="font-weight: bold; font-size: large">{{QuestionService.finalScore}}%</p>
              </div>
+             <div class = "row">
+                <div class="col s12 center-align">
+                  <img class="center"  [src]="'/assets/img/'+QuestionService.resultImage" >
+                    <div class="center-align">
+                    <p>{{QuestionService.resultsExplanation}}</p>
+                    </div>
+                </div>
+              </div>
          </div>
         </div>
         </div>
