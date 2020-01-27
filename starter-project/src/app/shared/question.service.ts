@@ -49,10 +49,10 @@ export class QuestionService{
     this.numAnswered = 0
     this.finalScore = -1
     this.NUMBER_QUESTIONS = 5
-    this.resultsExplanationsArray = ["Must be a First Year or something with that dedication", 
-    "You have some senioritis, but not enough where it is fatal", 
-    "You have large amounts of senioritis, but still go to class", 
-    "Just graduate already jeez"]
+    this.resultsExplanationsArray = ["Wow look at that dedication. You must be a First Year or something",
+    "You suffer from some senioritis (thought it is not fatal yet).",
+    "You suffer from heavy senioritis, but still make it to class somehow. Kudos!",
+    "Just graduate already, jeez."]
     this.ResetUserAnswerData()
   }
 
@@ -68,11 +68,11 @@ export class QuestionService{
 
       },
       choices : {
-        0: ["Never","Occasionally","Often","Sleep is for the weak"],
-        1: ["Early Morning","Around Lunch","Afternoon","I didn't get up today"],
+        0: ["Often.","Occasionally...","Never!","I am in bed by 10. All-nighters are for the youngins."],
+        1: ["Early Morning.","Noon.","Afternoon.","I didn't get up today..."],
         2: ["None at all ","Maybe 1","I have a few","I dont know, probably a lot"],
-        3: ["I did not skip any classes","I only skipped 1-2","I only attended 1 class because they take attendance","I no longer go to school"],
-        4: ["I actively dress up for class and would never wear sweatpants to class","Maybe once if I'm late","I wear them quite a bit","I only own groutfits"]
+        3: ["None. Not even the polar vortex could keep me from going to class!","I skipped a few here and there.","I only attended 1 class because they take attendance","I no longer go to school"],
+        4: ["Um, I always dress up for class and would never wear sweatpants to class.","Only when I'm running late.","I wear them quite a bit!","My closet is exclusively groutfits."]
 
       },
       images : ['Q0.jpg', 'Q1.jpg','Q2.jpg','Q3.jpg','Q4.jpg'],
@@ -189,7 +189,7 @@ export class QuestionService{
     }
 
     this.finalScore = Math.round((sum/this.questionData.answers.length)/3 * 100);
-    
+
     console.log("the average score is:")
     console.log(this.finalScore)
     this.processResults()
@@ -203,7 +203,7 @@ export class QuestionService{
   }
 
   processResults() {
-    
+
     console.log(this.finalScore)
     if(this.finalScore < 25){
       this.resultsExplanation = this.resultsExplanationsArray[0]
@@ -221,6 +221,6 @@ export class QuestionService{
       this.resultsExplanation = this.resultsExplanationsArray[3]
       this.resultImage = "R4.jpg"
     }
-    
+
   }
 }

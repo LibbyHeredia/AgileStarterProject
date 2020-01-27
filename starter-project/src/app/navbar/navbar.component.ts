@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { QuestionService } from '../shared/question.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router :Router,
     private firestore : AngularFirestore,
-    public afAuth : AngularFireAuth
+    public afAuth : AngularFireAuth,
+    public service: QuestionService
   ) {
 
   this.GetUserName()
@@ -51,9 +53,9 @@ export class NavbarComponent implements OnInit {
     })
 
   }
-  SignOut(link){
+  StartOver(link){
     if(link == "Sign Out"){
-      this.router.navigate['/login']
+      this.router.navigate['/quiz']
     }
   }
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { QuizService } from '../../shared/quiz.service';
 import { AngularFirestore} from '@angular/fire/firestore';
@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import * as firebaseui from 'firebaseui';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,16 @@ import * as firebaseui from 'firebaseui';
 export class LoginComponent implements OnInit {
 
   ui : firebaseui.auth.AuthUI;
+  error_message : ""
 
   constructor(
     public service: AuthService,
     private router : Router,
     private firestore : AngularFirestore,
-    private toastr : ToastrService  ) { }
+    private toastr : ToastrService,
+    public afAuth : AngularFireAuth, // Inject Firebase auth service
+    private ngZone : NgZone //NgZone to remove outside scope warning
+    ) { }
 
   ngOnInit() {
     this.initForm()
@@ -53,12 +58,21 @@ export class LoginComponent implements OnInit {
       userID : ''
     }
   }
+  //log in with email and password
+  login(email, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then(userObj => {}).catch(error => {
 
+        console.log(error.message)
+        this.error_message = error.message
+      })
+  }
   onLoginSuccessful(form : NgForm){
     let loginInfo = form.value;
     this.service.login(loginInfo.email,loginInfo.password)
+    this.toastr.success("Login Successful", 'Login')
+
     this.navigateToQuiz()
-    this.toastr.success("Login Successful", 'Quiz Login')
   }
 
   navigateToQuiz(){

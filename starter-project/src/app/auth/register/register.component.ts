@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
       score :0
     }
 
-    console.log(this.userName)
     this.ui = new firebaseui.auth.AuthUI(this.service.afAuth.auth);
     this.ui.start('#firebaseui-auth-container', uiConfig);
   }
@@ -62,10 +61,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form : NgForm){
-    console.log("Submitted");
+
     let data = form.value;
     this.userName.name = data.name
-    console.log(this.userName)
+
     //insert into firestore DB collection
     this.afAuth.authState.subscribe(user=>{
       if(user){
@@ -73,14 +72,12 @@ export class RegisterComponent implements OnInit {
           userRef.set(this.userName, {
           merge: true
         })
-        //this.firestore.collection("users").add(this.userName)
       }
     })
     this.resetForm(form);
     this.navigateToLogin();
-    this.toastr.success("Submitted succesfully", 'Quiz Register')
+    this.toastr.success("Submitted succesfully", 'Register')
   }
-
 
   navigateToLogin(){
     this.router.navigate(['./login'])

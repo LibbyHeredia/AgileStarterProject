@@ -2,29 +2,150 @@
 @import "~firebaseui/dist/firebaseui.css";
 
 input.ng-invalid.ng-dirty.ng-touched{
-  border-bottom-color : #e91e63 !important;
-  box-shadow: 0 1px 0 0 #e91e63 !important;
+  border-bottom-color :#F12222 !important;
+  box-shadow: 0 1px 0 0 #F12222 !important;
 }
 
+input.ng-touched.ng-pristine{
+  border-bottom-color :#F12222 !important;
+  box-shadow: 0 1px 0 0 #F12222 !important;
+}
+
+input.ng-touched{
+  border-bottom-color :#D39F10 !important;
+  box-shadow: 0 1px 0 0 #D39F10 !important;
+}
+
+div.card-content{
+  background-color:#246E70;
+}
+div.card-action{
+  background-color:#246E70 !important;
+}
+
+div.nav-wrapper{
+  background-color:#246E70 !important;
+
+}
+
+input.ng-untouched{
+  color:#ffffff;
+}
+
+input.ng-touched{
+  border-bottom-color :#D39F10 !important;
+  box-shadow: 0 4px 0 0 #D39F10
+}
+
+img[src="/assets/img/snoopy-logo.jpg"]{
+  margin-left:260px;
+
+
+}
+button.btn-large:hover{
+  background-color:#aaaaaa;
+}
+
+.btn{
+  background-color: #D39F10;
+  width:100%;
+  font-size: 14px;
+  font-family:"Arial Black"
+}
+
+input:hover{
+  color:#ffffff;
+}
+
+h3{
+  color:#ffffff;
+  font-size:30px;
+}
+
+i.material-icons{
+  color:#ffffff;
+}
+::placeholder{
+  color:##ffffff;
+}
+
+::selection{
+  color:#D39F10
+}
+input,span,{
+  color:#ffffff;
+}
 div.validation-error{
   width:100%;
   margin-top:.25rem;
   font-size: 80%;
-  color: #dc3545
+  color: #D39F10
+}
+
+a.btn {
+  height:100%;
 }
 
 button.btn-submit{
+  background-color: #D39F10;
   width:100%;
 }
 
+input[type=text]{
+  color:#ffffff !important;
+}
+
+input[type=password]{
+  color:#ffffff !important;
+}
+
+input.btn{
+  background-color: #D39F10;
+  width:100%;
+}
+
+input.btn:hover{
+  background-color: #aaaaaa;
+}
+
 ul.answer li:hover{
-  background-color:#26a69a;
-  color: #eafaf9;
+  background-color:#ffffff !important;
+  color: #D39F10;
   cursor: pointer;
 }
 
-ul li.selected{
-  background-color: #26a69a !important;
-  color: #eafaf9 !important;
+.btn:hover{
+  background-color:#ffffff !important;
+  color: #D39F10;
+  cursor: pointer;
 }
 
+input[class="btn-large"]:disabled,
+input[type="submit"]:disabled,{
+  border: 1px solid #999999;
+  background-color: #D39F10;
+  color: #D39F10;
+}
+
+#options {
+  background-color: #D39F10 !important;
+  color: #ffffff !important;
+}
+.active{
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+#options:hover{
+  background-color: #ffffff !important;
+  color: #D39F10 !important;
+}
+ul li.selected{
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+  cursor: pointer;
+}
+
+span{
+  color:#ffffff !important;
+}

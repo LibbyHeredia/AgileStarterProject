@@ -10,7 +10,7 @@ import { AuthGuard } from './auth/auth.guard';
 export const routes: Routes = [
   {path:'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path:'quiz', component: QuizComponent },
+  {path:'quiz', component: QuizComponent},
   {path:'results', component:ResultsPageComponent},
 
   //route for default routing
