@@ -60,18 +60,18 @@ export class QuestionService{
 
     this.questionData = {
       questions: {
-        0: "What are your thoughts on pulling all-nighters…?",
-        1: "When did you get up today?",
-        2: "Do you have any incomplete assignments?",
-        3: "Did you skip class today?",
-        4: "How many times have you work sweatpants to class this semester?"
+        0: "How often do you pull all-nighters?",
+        1: "What time did you get up today?",
+        2: "How many incomplete assignments do you have right now?",
+        3: "How many classes have you skipped this semester?",
+        4: "How many times have you worn sweatpants to class this week?"
 
       },
       choices : {
-        0: ["Often.","Occasionally...","Never!","I am in bed by 10. All-nighters are for the youngins."],
+        0: ["What is sleep?","All the time. I am 75% caffeine.","Occasionally, if there is an emergency.","I nap every day and am in bed by 10. All-nighters are for the youngins."],
         1: ["Early Morning.","Noon.","Afternoon.","I didn't get up today..."],
-        2: ["None at all ","Maybe 1","I have a few","I dont know, probably a lot"],
-        3: ["None. Not even the polar vortex could keep me from going to class!","I skipped a few here and there.","I only attended 1 class because they take attendance","I no longer go to school"],
+        2: ["None! I'm way ahead in all of my classes. ","One or two.","A few...", "Who knows? It's one of life's great mysteries."],
+        3: ["None. Not even the polar vortex could keep me from going to class!","I've skipped a few here and there.","I only attend 1 class because the Professor takes attendance.","Wait, I'm still enrolled in school?"],
         4: ["Um, I always dress up for class and would never wear sweatpants to class.","Only when I'm running late.","I wear them quite a bit!","My closet is exclusively groutfits."]
 
       },
