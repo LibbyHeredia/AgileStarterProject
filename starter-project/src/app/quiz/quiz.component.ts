@@ -38,7 +38,6 @@ export class QuizComponent implements OnInit {
 
     let data = form.value;
 
-    this.nextQuestion();
 
   }
 
@@ -47,7 +46,8 @@ export class QuizComponent implements OnInit {
     this.QuestionService.SetUserAnswer(1,2)
   }
 
-  nextQuestion(){
+  onClick(form){
+
 
   }
 }

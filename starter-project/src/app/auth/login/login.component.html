@@ -12,6 +12,7 @@
                 <form #loginForm="ngForm" (submit) = "onLogin(loginForm)">
 
                   <div class="formGroup">
+                    <i class="material-icons prefic">mail_outline</i>
                     <input type="text" name="email" #email class="formControl" placeholder="Email"  [pattern] = "emailPattern" required >
                       <div *ngIf="email.invalid && email.touched" class="validation-error">
                         This field is required.
@@ -19,6 +20,7 @@
                   </div>
 
                   <div class="formGroup">
+                    <i class="material-icons prefic">lock</i>
                     <input type="text" class="formControl" placeholder="Password" #password name="password" required >
                       <div *ngIf="email.invalid && email.touched" class="validation-error">
                         This field is required.

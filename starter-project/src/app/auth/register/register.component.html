@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+
 <div class="row">
     <div class="col s6 offset-s3">
       <div card>
@@ -13,7 +16,9 @@
 
               <div classs = "card-content">
                 <form #registerForm="ngForm" (submit) = "onSubmit(registerForm)">
+
                 <div class="formGroup">
+                  <i class="material-icons prefic">account_circle</i>
                   <input type="text" name="name" placeholder = "Name" #name="ngModel" [(ngModel)] ="service.formData.name" required>
                     <div *ngIf="name.invalid && name.touched" class="validation-error">
                       This field is required.
@@ -21,13 +26,15 @@
                 </div>
 
                 <div class="formGroup">
-                  <input type="text" name ="email" class="formControl"  placeholder="Email Address" #email required>
+                  <i class="material-icons prefic">mail_outline</i>
+                  <input type="text" name ="email" #email= "ngModel" [(ngModel)] ="service.formData.email" class="formControl"  placeholder="Email Address"  [pattern] = "emailPattern" required>
                   <div *ngIf="email.invalid && email.touched" class="validation-error">
                     This field is required.
                   </div>
                 </div>
 
                 <div class="formGroup">
+                  <i class="material-icons prefic">lock</i>
                   <input type="text" name = "password" class="formControl" placeholder="Password" #password="ngModel" [(ngModel)] ="service.formData.password" required>
                   <div *ngIf="password.invalid && password.touched" class="validation-error">
                     This field is required.
@@ -46,6 +53,7 @@
                     <div id = "firebaseui-auth-container" class = "auth-container">
                     </div>
                 </div>
+
                 </form>
               </div>
             </div>
@@ -60,3 +68,4 @@
       </div>
     </div>
   </div>
+</html>

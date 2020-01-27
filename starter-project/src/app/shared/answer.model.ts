@@ -1,5 +1,5 @@
 export class Answer {
 
     answers : Array<number> = [];
-    score : 0
+    score : number
 }

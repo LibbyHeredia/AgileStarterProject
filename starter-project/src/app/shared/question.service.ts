@@ -23,6 +23,7 @@ export class QuestionService{
   finalScore : number
   userSelectedAnswers : Answer
 
+
   readonly rootUrl = 'http://localhost:4200';
   constructor(
     public fbService: AngularFirestore,
@@ -50,7 +51,6 @@ export class QuestionService{
   }
 
   ResetUserAnswerData(){
-    console.log("QUIZ SERVICE: Reset User Answer Data")
 
     this.questionData = {
       questions: {
@@ -59,7 +59,7 @@ export class QuestionService{
         2: "Do you have any incomplete assignments?",
         3: "Did you skip class today?",
         4: "How many times have you work sweatpants to class this semester?"
-        
+
       },
       choices : {
         0: ["Never","Occasionally","Often","Sleep is for the weak"],
@@ -67,34 +67,33 @@ export class QuestionService{
         2: ["None at all ","Maybe 1","I have a few","I dont know, probably a lot"],
         3: ["I did not skip any classes","I only skipped 1-2","I only attended 1 class because they take attendance","I no longer go to school"],
         4: ["I actively dress up for class and would never wear sweatpants to class","Maybe once if I'm late","I wear them quite a bit","I only own groutfits"]
-        
+
       },
       images : ['Q0.jpg', 'Q1.jpg','Q2.jpg','Q3.jpg','Q4.jpg'],
       answers: [-1, -1, -1, -1, -1]
-      
+
     }
-    
+
     this.currentQN = 0
     this.userSelectedAnswers = {
       answers : [],
       score : 0
     }
     this.LoadQuestion()
-    console.log("QUIZ SERVICE: Setting userRef with userAnswerData")
-
   }
 
-    LoadQuestion(){
+  LoadQuestion(){
       var QN = this.GetCurrentQN()
       this.GetCurrentQNImage(QN)
       this.GetCurrentQNQuestion(QN)
       this.GetCurrentQNChoices(QN)
+
       console.log("Loading Question...")
       console.log(this.GetCurrentQN())
       console.log("Current image:")
       console.log(this.GetCurrentQNImage(QN))
     }
-  
+
   checkDone(){
     console.log("checking if done")
     if(!this.questionData.answers.includes(-1)){
@@ -103,10 +102,9 @@ export class QuestionService{
       body.classList.remove('disabled');
     }
   }
-  //ANSWER
+
+
   SetUserAnswer(QNumber, answer){
-
-
     this.questionData.answers[QNumber]= answer
     this.userSelectedAnswers.answers[QNumber] = answer
     console.log("Answer selected: ")
@@ -115,15 +113,10 @@ export class QuestionService{
     console.log(this.questionData.answers)
     this.GetNextQuestion();
     this.LoadQuestion()
-    
+
     this.checkDone()
-    
-    console.log("numAnswered:")
-    console.log(this.numAnswered)
+
     const user = this.formQuestionData
-    console.log("USER ID")
-    console.log(user.uid)
-    console.log('users/${user.uid}')
     const userRef : AngularFirestoreDocument<any> = this.fbService.doc(`users/${user.uid}`)
     userRef.set(this.userSelectedAnswers, {
       merge: true
@@ -151,7 +144,6 @@ export class QuestionService{
     console.log(this.NUMBER_QUESTIONS)
     console.log(">:(")
 
-
     if(this.currentQN + 1 >=  this.NUMBER_QUESTIONS){
       console.log("HERE")
 
@@ -167,16 +159,15 @@ export class QuestionService{
   }
 
   GetPreviousQuestion(){
-
     if(this.currentQN > 0){
       console.log("Getting next QN... ")
       console.log(this.currentQN - 1)
 
       return this.currentQN = this.currentQN - 1
-      
+
     }
-    
   }
+
   GoToPreviousQuestion(){
 
     if(this.currentQN > 0){
@@ -186,8 +177,10 @@ export class QuestionService{
       this.currentQN = this.currentQN - 1
       this.LoadQuestion()
     }
-    
   }
+
+
+
   GoToNextQuestion(){
 
     if(this.currentQN < 4){
@@ -197,17 +190,27 @@ export class QuestionService{
       this.currentQN = this.currentQN + 1
       this.LoadQuestion()
     }
-    
+
   }
+
 
   CalculateScore(){
     var sum = 0;
     for( var i = 0; i < this.questionData.answers.length; i++ ){
       sum += this.questionData.answers[i]
     }
-  
+
     this.finalScore = sum/this.questionData.answers.length;
     console.log("the average score is:")
     console.log(this.finalScore)
+
+    this.userSelectedAnswers.score = this.finalScore
+
+    const user = this.formQuestionData
+    const userRef : AngularFirestoreDocument<any> = this.fbService.doc(`users/${user.uid}`)
+    userRef.set(this.userSelectedAnswers, {
+      merge: true
+    })
+
   }
 }

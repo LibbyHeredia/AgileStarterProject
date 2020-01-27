@@ -8,7 +8,7 @@
         <div class="col s6">
           <img src="/assets/img/snoopy-logo.jpg" style="width:160px;height:250px;" class="offset-s3">
         </div>
-        
+
         <div class="card-content">
           <form #loginForm="ngForm" (submit) = "onLogin(loginForm)">
 
@@ -36,7 +36,9 @@
 
             <div class ="row">
               <div class = "input-field col s12">
-                <button class="btn-large btn-submit" type="submit" [disabled]= "!loginForm.valid">Start Quiz</button>"
+                <button class="btn-large btn-submit" type="submit" [disabled]= "!loginForm.valid">
+                  Start Quiz
+                </button>"
               </div>
             </div>
 
