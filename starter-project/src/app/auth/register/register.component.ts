@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.resetForm();
     const uiConfig = {
-      signInSuccessURL: "http://localhost:4200/login/",
+      signInSuccessURL: "http://localhost:4200/quiz/",
       signInOptions: [
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
         firebase.auth.TwitterAuthProvider.PROVIDER_ID
